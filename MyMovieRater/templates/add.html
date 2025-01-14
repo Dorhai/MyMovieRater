@@ -1,23 +1,23 @@
-{% extends 'bootstrap/base.html' %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% extends 'bootstrap/base.html' %} <!-- Extends the base Bootstrap template for consistent layout and styling. -->
+{% import "bootstrap/wtf.html" as wtf %} <!-- Imports WTForms template macros for rendering forms easily. -->
 
-{% block styles %}
-  {{ super() }}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% block styles %}  <!-- Custom styles block that extends the default styles. -->
+  {{ super() }} <!-- Ensures that parent styles are retained. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700"> <!-- Font style. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700"> <!-- Font style. -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> <!-- Local stylesheet. -->
 {% endblock %}
 
-{% block title %}Add Movie{% endblock %}
+{% block title %}Add Movie{% endblock %} <!-- Title of the page displayed in the browser tab. -->
 
-{% block content %}
+{% block content %} <!-- Main content block of the page. -->
 <div class="content">
-    <h1 class="heading">Add a Movie</h1>
+    <h1 class="heading">Add a Movie</h1> <!-- Page heading. -->
     <div>
-      <form action="{{ url_for('add') }} ", method="POST" novalidate>
-        {{ form.csrf_token }}
+      <form action="{{ url_for('add') }} ", method="POST" novalidate> <!-- Form for movie input; POST method to avoid showing input in URL. -->
+        {{ form.csrf_token }} <!-- CSRF token for security to prevent cross-site request forgery. -->
         <p> 
-          {{ wtf.quick_form(form)}}
+          {{ wtf.quick_form(form)}} <!-- Automatically generates the form based on the WTForms form object. -->
         </p>
       </form>
     </div>  
