@@ -89,29 +89,32 @@ def add():
 # Define the find route for fetching detailed movie data from TMDb API.
 @app.route("/find", methods=['POST','GET'])
 def find():
-    movie_id = request.values.get("id")
-    if movie_id:
+    movie_id = request.values.get("id") # Get the movie ID from the request.
+    if movie_id: # If a movie ID is provided, proceed to fetch movie details.
+        # Construct the API URL using the movie ID to fetch the full movie details.
         movie_api_url = f"https://api.themoviedb.org/3/movie/{movie_id}?language=en-US"
         headers = {
-            "accept": "application/json",
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZjdhNTkzNzM4OGUyMWZmYzJmYWRhYjY4YWIwNzAxMCIsInN1YiI6IjY0Nzc1NjM3MTJjNjA0MDExZjY2NWNhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.U3fma2sTbfahEQIkUp4rjpIus7H7P0ty-jE5nH7ZVXw"
+            "accept": "application/json", # Specify that the response should be in JSON format.
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZjdhNTkzNzM4OGUyMWZmYzJmYWRhYjY4YWIwNzAxMCIsInN1YiI6IjY0Nzc1NjM3MTJjNjA0MDExZjY2NWNhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.U3fma2sTbfahEQIkUp4rjpIus7H7P0ty-jE5nH7ZVXw" # Bearer token for authorization to access the API.
         }
+         # Send an HTTP GET request to the TMDb API to retrieve detailed movie information.
         response = requests.get(movie_api_url, headers=headers)
-        data = response.json()
+        data = response.json() # Parse the API response into a JSON dictionary.
+        # Create a new movie record based on the fetched movie data.
         new_movie = Movie(
-            title=data["original_title"],
-            year=data["release_date"].split("-")[0],
-            description=data["overview"],
-            rating=data['vote_average'],
-            ranking="",
-            review="",
-            img_url=f"{PICTURE_PATH}{data['poster_path']}"
+            title=data["original_title"], # Original title of the movie.
+            year=data["release_date"].split("-")[0], # Extract and store the release year (first 4 characters).
+            description=data["overview"], # Movie overview.
+            rating=data['vote_average'], # Average rating of the movie.
+            ranking="", # Leave ranking empty as it will be updated later.
+            review="", # Leave the review field empty for user input later.
+            img_url=f"{PICTURE_PATH}{data['poster_path']}" # Construct the full URL for the movie poster image.
         )
-        db.session.add(new_movie)
-        db.session.commit()
-        form = MyRatingForm()
+        db.session.add(new_movie) # Add the new movie to the database session.
+        db.session.commit() # Commit the session to save the movie in the database
+        form = MyRatingForm() # Create an instance of the movie rating form.
         
-        return render_template("edit.html", form=form, movie=new_movie)
+        return render_template("edit.html", form=form, movie=new_movie) # Render the "edit.html" template, passing the form and the new movie object.
 
 if __name__ == '__main__':
     app.run(debug=True)
