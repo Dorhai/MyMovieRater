@@ -1,25 +1,25 @@
-{% extends 'bootstrap/base.html' %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% extends 'bootstrap/base.html' %} <!-- Inherits the base template to keep layout uniform. -->
+{% import "bootstrap/wtf.html" as wtf %} <!-- Imports form rendering macros. --> 
 
 {% block styles %}
-  {{ super() }}
+  {{ super() }} <!-- Retains parent styles and adds custom ones below. -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> <!-- Main custom CSS file. -->
 {% endblock %}
 
-{% block title %}Edit Movies{% endblock %}
+{% block title %}Edit Movies{% endblock %} <!-- Title for the page. -->
 
 {% block content %}
 <div class="content">
   <h1 class="heading">Movie Title</h1>
     <p class="description">Edit Movie Rating</p>
   <div>
-    <form action="{{ url_for('edit') }} ", method="POST" novalidate>
-      {{ form.csrf_token }}
-      <input hidden="hidden" name="id" value="{{movie.id}}">
+    <form action="{{ url_for('edit') }} ", method="POST" novalidate>  <!-- Form for editing a movie's review and rating. -->
+      {{ form.csrf_token }} <!-- Security token to prevent CSRF attacks. -->
+      <input hidden="hidden" name="id" value="{{movie.id}}"> <!-- Hidden input to store the movie ID for identification. -->
       <p> 
-        {{ wtf.quick_form(form)}}
+        {{ wtf.quick_form(form)}} <!-- Renders the form fields defined in `MyRatingForm`. -->
       </p>
     </form>
   </div>  
