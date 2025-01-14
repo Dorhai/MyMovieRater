@@ -1,4 +1,4 @@
-{% extends 'bootstrap/base.html' %}
+{% extends 'bootstrap/base.html' %} <!-- Extends the base layout. -->
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block styles %}
@@ -13,9 +13,9 @@
 {% block content %}
 <div class="container">
     <h1 class="heading">Select Movie</h1>
-    {% for movie in options: %}
+    {% for movie in options: %} <!-- Loop through the list of search results. -->
   <p>
-    <a href="{{ url_for('find', id=movie.id) }} ">{{ movie.title }} - {{movie.release_date}}</a>
+    <a href="{{ url_for('find', id=movie.id) }} ">{{ movie.title }} - {{movie.release_date}}</a> <!-- Link to fetch and add a selected movie by ID. -->
   </p>
   {% endfor %}
 
