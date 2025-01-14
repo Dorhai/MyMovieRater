@@ -1,4 +1,4 @@
-{% extends 'bootstrap/base.html' %}
+{% extends 'bootstrap/base.html' %} <!-- Base template containing common layout and styling. -->
 
 {% block styles %}
   {{ super() }}
@@ -15,12 +15,12 @@
 <div class="container">
   <h1 class="heading">My Top 10 Movies</h1>
   <p class="description">These are my all time favourite movies.</p>
-   {% for movie in movies %}
+   {% for movie in movies %}  <!-- Loop through all the movies passed to the template. -->
   <div class="card" >
-    <div class="front" style="background-image: url('{{movie.img_url}}');">
-        <p class="large">{{movie.ranking}}</p>
+    <div class="front" style="background-image: url('{{movie.img_url}}');"> <!-- Front side of the card showing movie poster. -->
+        <p class="large">{{movie.ranking}}</p> <!-- Movie ranking displayed prominently. -->
     </div>
-    <div class="back">
+    <div class="back">  <!-- Back of the card displaying details. -->
       <div>
     <div class="title">{{movie.title}} <span class="release_date">{{movie.year}}</span></div>
         <div class="rating">
